@@ -17,7 +17,7 @@ def input_error(func: Callable) -> Callable:
 
 
 # Function for handling input commands from a terminal
-def parse_input(user_input: str):
+def parse_input(user_input: str) -> tuple:
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
     return cmd, *args
