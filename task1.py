@@ -1,7 +1,13 @@
 from typing import Dict, Callable
 
+
 def caching_fibonacci() -> Callable[[int], int]:
-  cache: Dict[int,int] = {}
+  # Create dict for memoization(caching)
+
+  cache: Dict[int, int] = {}
+
+  # Calculate fibonacci number using recursion and memoization(caching)
+
   def fibonacci(n: int) -> int:
     if n <= 0:
       return 0
@@ -15,7 +21,8 @@ def caching_fibonacci() -> Callable[[int], int]:
   
   return fibonacci
 
-fib = caching_fibonacci()
+# Example of use
 
+fib = caching_fibonacci()
 print(fib(10))  
 print(fib(15))  
