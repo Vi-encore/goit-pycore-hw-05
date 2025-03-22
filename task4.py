@@ -1,6 +1,7 @@
-from typing import Callable
+from typing import Callable, Dict
 
 
+# Function for handling errors during processing input commands (decorator)
 def input_error(func: Callable) -> Callable:
     def inner(*args, **kwargs):
         try:
@@ -15,6 +16,7 @@ def input_error(func: Callable) -> Callable:
     return inner
 
 
+# Function for handling input commands from a terminal
 def parse_input(user_input: str):
     cmd, *args = user_input.split()
     cmd = cmd.strip().lower()
@@ -22,8 +24,8 @@ def parse_input(user_input: str):
 
 
 @input_error
-def add_contact(args: list, contacts: dict) -> str:
-
+# Add new contact to contacts dictionary
+def add_contact(args: list, contacts: Dict[str, str]) -> str:
     name, phone = args
     if name in contacts:
         return f"Name {name} already exists in contacts!"
@@ -32,20 +34,19 @@ def add_contact(args: list, contacts: dict) -> str:
     return "Contact added."
 
 
-def show_all(contacts: dict) -> str:
+# Show all existing contacts in dictionary
+def show_all(contacts: Dict[str, str]) -> str:
     if not contacts:
         return "Contact list is empty"
 
     result = [f"{name}: {phone}" for name, phone in contacts.items()]
-
     return "\n".join(result)
 
 
 @input_error
-def change_contact(args: list, contacts: dict) -> str:
-
+# Change existing contact in contacts dictionary
+def change_contact(args: list, contacts: Dict[str, str]) -> str:
     name, phone = args
-
     # To trigger KeyError if contact is not present in contacts
     existing_phone = contacts[name]
     contacts[name] = phone
@@ -53,18 +54,18 @@ def change_contact(args: list, contacts: dict) -> str:
 
 
 @input_error
-def phone_user(args: list, contacts: dict) -> str:
-
+# Show phone number fpr selected user
+def phone_user(args: list, contacts: Dict[str, str]) -> str:
     name = args[0]
-
     return contacts[name]
 
 
+# Main function for handling input commands
 def main():
     contacts = {}
+    # examples for testing purposes
     # contacts = {'Vi': 345,
     #             'Dsa': 45346}
-    # contacts = {'Vi': 4535,}
     print("Welcome to the assistant bot!")
 
     while True:
